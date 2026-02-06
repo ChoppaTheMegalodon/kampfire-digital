@@ -3,1163 +3,1284 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAMPFIRE.DIGITAL</title>
+    <title>Kampfire Digital — AI Workflow Automation for Business</title>
+    <meta name="description" content="We automate the boring stuff so you can focus on what matters. AI workflow consulting for small businesses, accountants, and professional services.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * {
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
         :root {
-            --pixel-red: #1e3a5f;
-            --pixel-orange: #3b82f6;
-            --pixel-yellow: #60a5fa;
-            --pixel-amber: #93c5fd;
-            --pixel-dark-green: #1e3a5f;
-            --pixel-darker-green: #0f172a;
-            --pixel-forest: #1d4ed8;
-            --pixel-lime: #38bdf8;
-            --pixel-emerald: #06b6d4;
-            --pixel-white: #fef3c7;
-            --pixel-gray: #a3a3a3;
+            --primary: #E97451;
+            --primary-dark: #C4572B;
+            --primary-light: #F09070;
+            --accent: #F5A623;
+            --accent-dark: #D4891A;
+            --bg-dark: #1A1A2E;
+            --bg-card: #16213E;
+            --bg-card-hover: #1B2A4A;
+            --text: #E8E8E8;
+            --text-muted: #A0A0B0;
+            --text-white: #FFFFFF;
+            --border-subtle: rgba(233, 116, 81, 0.15);
+            --glow-primary: rgba(233, 116, 81, 0.25);
+            --glow-accent: rgba(245, 166, 35, 0.2);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
         }
 
         body {
-            font-family: 'VT323', monospace;
-            background: var(--pixel-darker-green);
-            color: var(--pixel-white);
-            image-rendering: pixelated;
-            image-rendering: -moz-crisp-edges;
-            image-rendering: crisp-edges;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Splash Screen */
-        #splash-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #000000;
-            transition: opacity 0.5s ease;
-        }
-
-        #splash-screen.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .splash-content {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Circular beach background */
-        .splash-image {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90vmin;
-            height: 90vmin;
-            object-fit: cover;
-            mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 25%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.2) 55%, rgba(0,0,0,0.05) 70%, rgba(0,0,0,0) 85%);
-            -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 25%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.2) 55%, rgba(0,0,0,0.05) 70%, rgba(0,0,0,0) 85%);
-            filter: brightness(0.8);
-        }
-
-        .splash-overlay {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .splash-title {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 2.5rem;
-            color: var(--pixel-orange);
-            text-shadow: 
-                4px 4px 0px var(--pixel-red),
-                0 0 20px rgba(96, 165, 250, 0.5);
-            margin-bottom: 1rem;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 4px 4px 0px var(--pixel-red), 0 0 20px rgba(96, 165, 250, 0.5); }
-            to { text-shadow: 4px 4px 0px var(--pixel-red), 0 0 30px rgba(96, 165, 250, 0.8); }
-        }
-
-        /* Campfire as clickable entrance */
-        .campfire-container {
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .campfire-container:hover {
-            transform: scale(1.1);
-        }
-
-        .campfire-container:hover .campfire-img {
-            filter: drop-shadow(0 -8px 15px rgba(255, 150, 50, 0.9))
-                    drop-shadow(0 -15px 25px rgba(255, 100, 0, 0.6));
-        }
-
-        .campfire-container:active {
-            transform: scale(1.05);
-        }
-
-        .campfire-img {
-            width: 240px;
-            height: auto;
-            filter: drop-shadow(0 -5px 8px rgba(255, 150, 50, 0.7))
-                    drop-shadow(0 -10px 15px rgba(255, 100, 0, 0.4));
-            animation: fireGlow 1.5s ease-in-out infinite alternate,
-                       fireCrackle 3s ease-in-out infinite;
-            transform-origin: bottom center;
-            mask-image: radial-gradient(ellipse 80% 90% at 50% 45%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.9) 60%, rgba(0,0,0,0) 100%);
-            -webkit-mask-image: radial-gradient(ellipse 80% 90% at 50% 45%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.9) 60%, rgba(0,0,0,0) 100%);
-        }
-
-        @keyframes fireGlow {
-            0% {
-                filter: drop-shadow(0 -5px 8px rgba(255, 150, 50, 0.7))
-                        drop-shadow(0 -10px 15px rgba(255, 100, 0, 0.4));
-            }
-            50% {
-                filter: drop-shadow(0 -8px 12px rgba(255, 120, 30, 0.8))
-                        drop-shadow(0 -15px 20px rgba(255, 80, 0, 0.5));
-            }
-            100% {
-                filter: drop-shadow(0 -6px 10px rgba(255, 170, 70, 0.75))
-                        drop-shadow(0 -12px 18px rgba(255, 130, 20, 0.45));
-            }
-        }
-
-        @keyframes fireCrackle {
-            0%, 100% { transform: scaleX(1) scaleY(1); }
-            15% { transform: scaleX(1.008) scaleY(0.995); }
-            30% { transform: scaleX(0.995) scaleY(1.005); }
-            45% { transform: scaleX(1.005) scaleY(0.998); }
-            60% { transform: scaleX(0.998) scaleY(1.003); }
-            75% { transform: scaleX(1.003) scaleY(0.997); }
-            90% { transform: scaleX(0.997) scaleY(1.002); }
-        }
-
-        .enter-text {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1rem;
-            color: var(--pixel-yellow);
-            text-align: center;
-            margin-bottom: 1rem;
-            animation: blink 1.5s step-start infinite;
-            text-shadow: 2px 2px 0px var(--pixel-orange);
-        }
-
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-
-        .press-start {
-            display: none;
-        }
-
-        /* Main Site */
-        #main-site {
-            display: none;
-            min-height: 100vh;
-            background-image: 
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(96, 165, 250, 0.03) 2px,
-                    rgba(96, 165, 250, 0.03) 4px
-                );
-            background-color: var(--pixel-darker-green);
-            position: relative;
-        }
-
-        #main-site::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('The_Beach__Night_.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            opacity: 0.15;
-            filter: brightness(0.6) saturate(1.2);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        #main-site.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Pixel Grid Background */
-        .pixel-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.05;
-            background-image: 
-                linear-gradient(var(--pixel-orange) 1px, transparent 1px),
-                linear-gradient(90deg, var(--pixel-orange) 1px, transparent 1px);
-            background-size: 20px 20px;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Stars background */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: var(--pixel-white);
-            box-shadow: 0 0 4px var(--pixel-white);
-            animation: twinkle 3s ease-in-out infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
+        /* ===== UTILITIES ===== */
         .container {
-            max-width: 1200px;
+            max-width: 1140px;
             margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 1;
+            padding: 0 1.5rem;
         }
 
-        /* Header */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* ===== HEADER ===== */
         header {
-            padding: 2rem 0;
-            border-bottom: 4px solid var(--pixel-orange);
-            background: rgba(15, 23, 42, 0.9);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 0 var(--pixel-red);
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 46, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: box-shadow 0.3s ease;
         }
 
-        nav {
+        header.scrolled {
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-inner {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 72px;
         }
 
         .logo {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.5rem;
-            color: var(--pixel-orange);
-            text-shadow: 3px 3px 0px var(--pixel-red);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-white);
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: 0.08em;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 0.25rem;
             list-style: none;
         }
 
         .nav-links a {
-            font-family: 'Press Start 2P', cursive;
-            color: var(--pixel-white);
+            color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.8rem;
-            transition: all 0.2s;
+            font-size: 0.9rem;
+            font-weight: 500;
             padding: 0.5rem 1rem;
-            border: 2px solid transparent;
+            border-radius: 6px;
+            transition: color 0.2s, background 0.2s;
         }
 
         .nav-links a:hover {
-            color: var(--pixel-yellow);
-            border: 2px solid var(--pixel-yellow);
-            background: rgba(96, 165, 250, 0.1);
-            transform: translateY(-2px);
+            color: var(--text-white);
+            background: rgba(233, 116, 81, 0.1);
         }
 
-        /* Pixel Button */
-        .pixel-btn {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.9rem;
-            padding: 1rem 2rem;
-            background: var(--pixel-lime);
-            color: var(--pixel-darker-green);
-            border: 4px solid var(--pixel-white);
+        /* Mobile nav toggle */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
             cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.1s;
-            box-shadow: 4px 4px 0 var(--pixel-dark-green);
+            padding: 0.5rem;
         }
 
-        .pixel-btn:hover {
-            transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0 var(--pixel-dark-green);
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            margin: 6px 0;
+            transition: transform 0.3s, opacity 0.3s;
+            border-radius: 2px;
         }
 
-        .pixel-btn:active {
-            transform: translate(4px, 4px);
-            box-shadow: 0px 0px 0 var(--pixel-dark-green);
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
         }
 
-        .pixel-btn-secondary {
-            background: transparent;
-            color: var(--pixel-orange);
-            border-color: var(--pixel-orange);
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
         }
 
-        /* Hero Section */
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        /* ===== HERO ===== */
         .hero {
-            padding: 6rem 0;
+            padding: 10rem 0 6rem;
             text-align: center;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% 0%, rgba(233, 116, 81, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 20% 80%, rgba(245, 166, 35, 0.04) 0%, transparent 50%),
+                var(--bg-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
         }
 
         .hero h1 {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 3rem;
-            line-height: 1.4;
-            margin-bottom: 2rem;
-            color: var(--pixel-orange);
-            text-shadow: 4px 4px 0px var(--pixel-red);
-            animation: float 3s ease-in-out infinite;
+            font-size: clamp(2.25rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            color: var(--text-white);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .hero .gradient-text {
-            color: var(--pixel-yellow);
-            text-shadow: 4px 4px 0px var(--pixel-orange);
+        .hero-sub {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 620px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+            font-weight: 400;
         }
 
-        .hero .subtitle {
-            font-family: 'VT323', monospace;
-            font-size: 1.8rem;
-            color: var(--pixel-gray);
-            max-width: 700px;
-            margin: 0 auto 3rem;
-            line-height: 1.6;
-        }
-
-        .cta-buttons {
+        .hero-ctas {
             display: flex;
-            gap: 2rem;
+            gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
+            margin-bottom: 2.5rem;
         }
 
-        /* Section */
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.875rem 2rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            border: none;
+            letter-spacing: 0.01em;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--text-white);
+            box-shadow: 0 4px 16px rgba(233, 116, 81, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(233, 116, 81, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid rgba(232, 232, 232, 0.2);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-card {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 0.625rem 1.5rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-card:hover {
+            background: var(--primary);
+            color: var(--text-white);
+            transform: translateY(-1px);
+        }
+
+        /* Founding banner */
+        .founding-badge {
+            display: inline-block;
+            padding: 0.75rem 1.75rem;
+            background: linear-gradient(135deg, rgba(245, 166, 35, 0.12) 0%, rgba(233, 116, 81, 0.08) 100%);
+            border: 1px solid rgba(245, 166, 35, 0.3);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 0.02em;
+        }
+
+        .founding-badge strong {
+            color: var(--text-white);
+        }
+
+        /* ===== SECTIONS ===== */
         section {
-            padding: 4rem 0;
-            border-bottom: 4px dashed var(--pixel-orange);
+            padding: 6rem 0;
+            position: relative;
         }
 
-        .section-header {
-            margin-bottom: 3rem;
+        section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 900px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+        }
+
+        section:last-of-type::after {
+            display: none;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
         }
 
         .section-title {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 2rem;
-            color: var(--pixel-yellow);
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 700;
+            color: var(--text-white);
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .section-title::before {
-            content: '►';
-            color: var(--pixel-lime);
+            letter-spacing: -0.01em;
         }
 
         .section-subtitle {
-            font-family: 'VT323', monospace;
-            font-size: 1.6rem;
-            color: var(--pixel-gray);
-            max-width: 700px;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 560px;
+            line-height: 1.7;
         }
 
-        /* Pixel Box */
-        .pixel-box {
-            background: var(--pixel-dark-green);
-            border: 4px solid var(--pixel-orange);
+        .section-header {
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header.center {
+            text-align: center;
+        }
+
+        .section-header.center .section-subtitle {
+            margin: 0 auto;
+        }
+
+        /* ===== SERVICES ===== */
+        #services {
+            background:
+                radial-gradient(ellipse 70% 50% at 80% 20%, rgba(233, 116, 81, 0.04) 0%, transparent 60%),
+                var(--bg-dark);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
             padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 
-                8px 8px 0 rgba(59, 130, 246, 0.3),
-                inset 0 0 20px rgba(96, 165, 250, 0.1);
-            transition: all 0.3s;
-        }
-
-        .pixel-box:hover {
-            transform: translate(-4px, -4px);
-            box-shadow: 
-                12px 12px 0 rgba(59, 130, 246, 0.5),
-                inset 0 0 20px rgba(96, 165, 250, 0.2);
-            border-color: var(--pixel-yellow);
-        }
-
-        .pixel-box-header {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1.5rem;
-            border-bottom: 2px dashed var(--pixel-orange);
-            padding-bottom: 1rem;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .pixel-box-title {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.3rem;
-            color: var(--pixel-orange);
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(233, 116, 81, 0.12);
+            border-color: rgba(233, 116, 81, 0.2);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-tier {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--primary);
             margin-bottom: 0.5rem;
         }
 
-        .pixel-box-role {
-            font-family: 'Press Start 2P', cursive;
-            color: var(--pixel-lime);
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
-            margin-bottom: 1rem;
+        .service-name {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 0.75rem;
         }
 
-        .pixel-box-text {
-            font-family: 'VT323', monospace;
-            font-size: 1.5rem;
-            color: var(--pixel-white);
-            line-height: 1.6;
+        .service-price {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .service-founding {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 1.25rem;
+        }
+
+        .service-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.65;
             margin-bottom: 1.5rem;
         }
 
-        .pixel-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-
-        .pixel-tag {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.6rem;
-            padding: 0.5rem 1rem;
-            background: var(--pixel-darker-green);
-            border: 2px solid var(--pixel-lime);
-            color: var(--pixel-lime);
-        }
-
-        /* Portfolio Grid */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .portfolio-item {
-            background: var(--pixel-dark-green);
-            border: 4px solid var(--pixel-red);
-            overflow: hidden;
-            transition: all 0.3s;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-
-        .portfolio-item:hover {
-            transform: scale(1.05);
-            border-color: var(--pixel-orange);
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
-        }
-
-        .portfolio-header {
-            background: var(--pixel-orange);
-            padding: 2rem;
-            text-align: center;
-            border-bottom: 4px solid var(--pixel-red);
-        }
-
-        .portfolio-number {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 3rem;
-            color: var(--pixel-darker-green);
-        }
-
-        .portfolio-content {
-            padding: 1.5rem;
-        }
-
-        .portfolio-title {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.1rem;
-            color: var(--pixel-orange);
-            margin-bottom: 1rem;
-        }
-
-        .portfolio-description {
-            font-family: 'VT323', monospace;
-            font-size: 1.4rem;
-            color: var(--pixel-gray);
-            margin-bottom: 1rem;
-        }
-
-        /* Blog Posts */
-        .blog-posts {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .blog-post {
-            background: var(--pixel-dark-green);
-            border: 4px solid var(--pixel-yellow);
-            padding: 2rem;
-            display: flex;
-            gap: 2rem;
-            transition: all 0.3s;
-        }
-
-        .blog-post:hover {
-            border-color: var(--pixel-orange);
-            transform: translateX(10px);
-            box-shadow: -10px 0 20px rgba(96, 165, 250, 0.3);
-        }
-
-        .blog-date {
-            min-width: 100px;
-            text-align: center;
-        }
-
-        .blog-month {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.8rem;
-            color: var(--pixel-yellow);
-        }
-
-        .blog-day {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 3rem;
-            color: var(--pixel-white);
-            line-height: 1;
-            margin-top: 0.5rem;
-        }
-
-        .blog-content {
+        .service-features {
+            list-style: none;
+            margin-bottom: 2rem;
             flex: 1;
         }
 
-        .blog-title {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.2rem;
-            color: var(--pixel-orange);
-            margin-bottom: 1rem;
-            line-height: 1.5;
+        .service-features li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.9rem;
+            color: var(--text);
         }
 
-        .blog-excerpt {
-            font-family: 'VT323', monospace;
-            font-size: 1.4rem;
-            color: var(--pixel-gray);
-            line-height: 1.6;
-        }
-
-        .blog-link {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.7rem;
-            color: var(--pixel-lime);
-            text-decoration: none;
-            margin-top: 1rem;
-            display: inline-block;
-            transition: all 0.2s;
-        }
-
-        .blog-link:hover {
-            color: var(--pixel-yellow);
-            transform: translateX(5px);
-        }
-
-        
-        /* Author Profile */
-        .blog-author {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 100px;
-        }
-
-        .author-img {
-            width: 80px;
-            height: 80px;
+        .service-features li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.55rem;
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
             border-radius: 50%;
-            border: 3px solid var(--pixel-orange);
-            object-fit: cover;
-            margin-bottom: 0.5rem;
         }
 
-        .author-name {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.6rem;
-            color: var(--pixel-lime);
-            margin-bottom: 0.5rem;
+        .service-card .btn-card {
+            align-self: flex-start;
         }
 
-        .blog-date-info {
-            text-align: center;
+        /* ===== HOW IT WORKS ===== */
+        #how-it-works {
+            background:
+                radial-gradient(ellipse 60% 40% at 20% 50%, rgba(245, 166, 35, 0.04) 0%, transparent 50%),
+                var(--bg-dark);
         }
 
-        .blog-date-info .month {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.5rem;
-            color: var(--pixel-yellow);
-        }
-
-        .blog-date-info .day {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.2rem;
-            color: var(--pixel-white);
-        }
-
-        .blog-date-info .year {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.5rem;
-            color: var(--pixel-gray);
-        }
-
-/* Social Links */
-        .social-grid {
+        .steps-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            position: relative;
+        }
+
+        .steps-grid::before {
+            content: '';
+            position: absolute;
+            top: 2.5rem;
+            left: 15%;
+            right: 15%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
+            opacity: 0.2;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--text-white);
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 16px rgba(233, 116, 81, 0.25);
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 0.75rem;
+        }
+
+        .step-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        /* ===== ABOUT ===== */
+        #about {
+            background:
+                radial-gradient(ellipse 50% 60% at 70% 30%, rgba(233, 116, 81, 0.04) 0%, transparent 50%),
+                var(--bg-dark);
+        }
+
+        .about-content {
+            max-width: 680px;
+        }
+
+        .about-text {
+            font-size: 1.05rem;
+            color: var(--text);
+            line-height: 1.75;
+            margin-bottom: 1.25rem;
+        }
+
+        .trust-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
             margin-top: 2rem;
         }
 
-        .social-box {
-            background: var(--pixel-dark-green);
-            border: 4px solid var(--pixel-orange);
-            padding: 2rem 1rem;
-            text-align: center;
-            transition: all 0.3s;
-            cursor: pointer;
+        .trust-tag {
+            padding: 0.5rem 1.1rem;
+            background: rgba(233, 116, 81, 0.08);
+            border: 1px solid rgba(233, 116, 81, 0.15);
+            border-radius: 100px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text);
+            letter-spacing: 0.02em;
+        }
+
+        /* ===== BLOG ===== */
+        #blog {
+            background:
+                radial-gradient(ellipse 60% 50% at 30% 60%, rgba(245, 166, 35, 0.03) 0%, transparent 50%),
+                var(--bg-dark);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .blog-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
             text-decoration: none;
-            color: var(--pixel-white);
+            color: inherit;
         }
 
-        .social-box:hover {
-            background: var(--pixel-orange);
-            color: var(--pixel-darker-green);
-            transform: translateY(-5px);
-            box-shadow: 0 8px 0 var(--pixel-red);
+        .blog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(233, 116, 81, 0.1);
+            border-color: rgba(233, 116, 81, 0.2);
         }
 
-        .social-icon {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.5rem;
+        .blog-card-date {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.03em;
+        }
+
+        .blog-card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .blog-card-excerpt {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .blog-card-link {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: gap 0.2s;
+        }
+
+        .blog-card:hover .blog-card-link {
+            gap: 0.7rem;
+        }
+
+        .blog-card-link::after {
+            content: '\2192';
+        }
+
+        /* ===== CONTACT ===== */
+        #contact {
+            background:
+                radial-gradient(ellipse 70% 50% at 50% 80%, rgba(233, 116, 81, 0.06) 0%, transparent 60%),
+                var(--bg-dark);
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info-text {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             margin-bottom: 1rem;
+            font-size: 0.95rem;
         }
 
-        .social-name {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.6rem;
+        .contact-detail-label {
+            font-weight: 600;
+            color: var(--text-white);
+            min-width: 60px;
         }
 
-        /* Footer */
-        footer {
-            padding: 3rem 0;
-            text-align: center;
-            border-top: 4px solid var(--pixel-orange);
-            background: rgba(15, 23, 42, 0.9);
+        .contact-detail a {
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: color 0.2s;
         }
 
-        footer p {
-            font-family: 'VT323', monospace;
-            font-size: 1.4rem;
-            color: var(--pixel-gray);
+        .contact-detail a:hover {
+            color: var(--accent);
         }
 
-        .footer-pixel {
-            font-family: 'Press Start 2P', cursive;
-            color: var(--pixel-orange);
+        .contact-socials {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
 
-        /* Scanlines effect */
-        .scanlines {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            background: rgba(233, 116, 81, 0.08);
+            border: 1px solid rgba(233, 116, 81, 0.15);
+            transition: background 0.2s, transform 0.2s, border-color 0.2s;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: rgba(233, 116, 81, 0.15);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .social-link svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--text);
+        }
+
+        /* Contact form */
+        .contact-form {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(0, 0, 0, 0.1) 2px,
-                rgba(0, 0, 0, 0.1) 4px
-            );
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.3;
+            padding: 0.75rem 1rem;
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-white);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
         }
 
-        /* Responsive */
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(233, 116, 81, 0.12);
+        }
+
+        .form-group select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A0A0B0' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+            cursor: pointer;
+        }
+
+        .form-group select option {
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-group ::placeholder {
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 0.875rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--text-white);
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            letter-spacing: 0.01em;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(233, 116, 81, 0.35);
+        }
+
+        .form-submit:active {
+            transform: scale(0.98);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 2.5rem 0;
+            border-top: 1px solid var(--border-subtle);
+            background: rgba(22, 33, 62, 0.5);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-copy {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-top {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-top:hover {
+            color: var(--primary);
+        }
+
+        /* ===== MOBILE NAV OVERLAY ===== */
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            top: 72px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 26, 46, 0.98);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 999;
+        }
+
+        .nav-overlay.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 3rem;
+        }
+
+        .nav-overlay a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            transition: color 0.2s;
+        }
+
+        .nav-overlay a:hover {
+            color: var(--primary);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .steps-grid::before {
+                display: none;
+            }
+        }
+
         @media (max-width: 768px) {
-            .splash-title {
-                font-size: 1.5rem;
+            .nav-links {
+                display: none;
             }
 
-            .campfire-img {
-                width: 160px;
+            .nav-toggle {
+                display: block;
             }
 
-            .enter-text {
-                font-size: 0.8rem;
-            }
-
-            .splash-image {
-                width: 80vmin;
-                height: 80vmin;
+            .hero {
+                padding: 8rem 0 4rem;
             }
 
             .hero h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
 
-            .nav-links {
+            .hero-sub {
+                font-size: 1.05rem;
+            }
+
+            section {
+                padding: 4rem 0;
+            }
+
+            .section-header {
+                margin-bottom: 2.5rem;
+            }
+
+            .founding-badge {
+                font-size: 0.78rem;
+                padding: 0.625rem 1.25rem;
+            }
+
+            .footer-inner {
+                flex-direction: column;
                 gap: 1rem;
+                text-align: center;
             }
+        }
 
-            .nav-links a {
-                font-size: 0.6rem;
-                padding: 0.3rem 0.6rem;
-            }
-
-            .section-title {
-                font-size: 1.3rem;
-            }
-
-            .blog-post {
+        @media (max-width: 480px) {
+            .hero-ctas {
                 flex-direction: column;
+                align-items: stretch;
             }
 
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
+            .hero-ctas .btn {
+                text-align: center;
+            }
+
+            .service-card {
+                padding: 1.5rem;
+            }
+
+            .contact-form {
+                padding: 1.5rem;
+            }
+
+            .contact-socials {
+                flex-wrap: wrap;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Splash Screen -->
-    <div id="splash-screen">
-        <div class="splash-content">
-            <img src="The_Beach__Night_.png" alt="Beach Night" class="splash-image" id="splash-bg">
-            <div class="splash-overlay">
-                <h1 class="splash-title">KAMPFIRE.DIGITAL</h1>
-                <div class="enter-text">CLICK TO ENTER</div>
-                <div class="campfire-container" id="campfire-btn">
-                    <img src="Kampfire.png" alt="Campfire" class="campfire-img">
+
+    <!-- ===== HEADER ===== -->
+    <header id="site-header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="#" class="logo">
+                    <img src="Kampfire.png" alt="Kampfire Digital logo" width="40" height="40">
+                    <span class="logo-text">KAMPFIRE</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile nav overlay -->
+    <div class="nav-overlay" id="navOverlay">
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#blog">Blog</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="container">
+            <h1>AI That <span>Actually Works</span><br>For Your Business</h1>
+            <p class="hero-sub">We automate the boring stuff so you can focus on what matters. No jargon, no hype &mdash; just workflows that save you real time and money.</p>
+            <div class="hero-ctas">
+                <a href="#contact" class="btn btn-primary">Book a Free Discovery Call</a>
+                <a href="#services" class="btn btn-secondary">See Our Services</a>
+            </div>
+            <div class="founding-badge">
+                <strong>LIMITED:</strong> 3 Founding Client spots at 50% off &mdash; launching February 2026
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <section id="services">
+        <div class="container">
+            <div class="section-header center">
+                <p class="section-label">Services</p>
+                <h2 class="section-title">Pick the level that fits</h2>
+                <p class="section-subtitle">From a quick audit to a full AI department, every engagement starts with understanding your business first.</p>
+            </div>
+
+            <div class="services-grid">
+                <!-- SPARK -->
+                <div class="service-card">
+                    <span class="service-tier">Spark</span>
+                    <h3 class="service-name">AI Workflow Audit</h3>
+                    <p class="service-price">$500 &ndash; $750</p>
+                    <p class="service-founding">Founding price: $250 &ndash; $375</p>
+                    <p class="service-desc">We audit your current processes and show you exactly where AI can save you time. You get a prioritised roadmap of automation opportunities.</p>
+                    <ul class="service-features">
+                        <li>4 hours of expert analysis</li>
+                        <li>Written report with recommendations</li>
+                        <li>ROI estimate for each opportunity</li>
+                        <li>No commitment required</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-card">Start Here</a>
+                </div>
+
+                <!-- FLAME -->
+                <div class="service-card">
+                    <span class="service-tier">Flame</span>
+                    <h3 class="service-name">1 Implemented Workflow</h3>
+                    <p class="service-price">$2,000 &ndash; $3,500</p>
+                    <p class="service-founding">Founding price: $1,000 &ndash; $1,750</p>
+                    <p class="service-desc">We pick your highest-impact workflow and automate it end-to-end. You see the results before committing to anything bigger.</p>
+                    <ul class="service-features">
+                        <li>1 fully built automation</li>
+                        <li>Training for your team</li>
+                        <li>14 days of support after delivery</li>
+                        <li>Documentation included</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-card">Get a Quote</a>
+                </div>
+
+                <!-- BLAZE -->
+                <div class="service-card">
+                    <span class="service-tier">Blaze</span>
+                    <h3 class="service-name">Full Business Integration</h3>
+                    <p class="service-price">$5,000 &ndash; $8,000</p>
+                    <p class="service-founding">&nbsp;</p>
+                    <p class="service-desc">We transform your operations with a complete automation suite. Multiple workflows, connected systems, measurable results.</p>
+                    <ul class="service-features">
+                        <li>Up to 5 connected workflows</li>
+                        <li>Full system integration</li>
+                        <li>Team training and handover</li>
+                        <li>30 days of post-delivery support</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-card">Let's Talk</a>
+                </div>
+
+                <!-- INFERNO -->
+                <div class="service-card">
+                    <span class="service-tier">Inferno</span>
+                    <h3 class="service-name">Monthly Retainer</h3>
+                    <p class="service-price">$1,500 &ndash; $2,500 / month</p>
+                    <p class="service-founding">&nbsp;</p>
+                    <p class="service-desc">We become your AI department. Ongoing optimisation, new automations as your needs evolve, priority support.</p>
+                    <ul class="service-features">
+                        <li>10 hours/month of dedicated work</li>
+                        <li>Priority support</li>
+                        <li>Monthly reporting</li>
+                        <li>New automations as needed</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-card">Apply</a>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Main Site -->
-    <div id="main-site">
-        <div class="pixel-bg"></div>
-        <div class="stars" id="stars"></div>
-        <div class="scanlines"></div>
-
-        <header>
-            <div class="container">
-                <nav>
-                    <div class="logo">KAMPFIRE</div>
-                    <ul class="nav-links">
-                        <li><a href="#work">WORK</a></li>
-                        <li><a href="#portfolio">PORTFOLIO</a></li>
-                        <li><a href="#blog">BLOG</a></li>
-                        <li><a href="#contact">CONTACT</a></li>
-                    </ul>
-                </nav>
+    <!-- ===== HOW IT WORKS ===== -->
+    <section id="how-it-works">
+        <div class="container">
+            <div class="section-header center">
+                <p class="section-label">How It Works</p>
+                <h2 class="section-title">Three steps. No mystery.</h2>
             </div>
-        </header>
 
-        <main>
-            <div class="container">
-                <section class="hero">
-                    <h1>
-                        BUILDING<br>
-                        <span class="gradient-text">WEB3</span><br>
-                        COMMUNITIES
-                    </h1>
-                    <p class="subtitle">
-                        COMMUNITY LEAD AT PYTH.NETWORK // VIBE CODER // WRITER
-                    </p>
-                    <div class="cta-buttons">
-                        <a href="#work" class="pixel-btn">VIEW WORK</a>
-                        <a href="#contact" class="pixel-btn pixel-btn-secondary">CONNECT</a>
-                    </div>
-                </section>
-
-                <section id="work">
-                    <div class="section-header">
-                        <h2 class="section-title">CURRENT QUEST</h2>
-                        <p class="section-subtitle">
-                            LEADING COMMUNITY INITIATIVES IN THE DECENTRALIZED ORACLE SPACE
-                        </p>
-                    </div>
-
-                    <div class="pixel-box">
-                        <div class="pixel-box-header">
-                            <div>
-                                <div class="pixel-box-role">COMMUNITY LEAD</div>
-                                <h3 class="pixel-box-title">PYTH NETWORK</h3>
-                            </div>
-                        </div>
-                        <p class="pixel-box-text">
-                            Leading community engagement initiatives for Pyth Network, a decentralized oracle network delivering high-fidelity market data to blockchain applications. Building bridges between developers, traders, and DeFi builders while growing the ecosystem through education and meaningful connections.
-                        </p>
-                        <div class="pixel-tags">
-                            <span class="pixel-tag">WEB3</span>
-                            <span class="pixel-tag">DEFI</span>
-                            <span class="pixel-tag">ORACLES</span>
-                            <span class="pixel-tag">COMMUNITY</span>
-                            <span class="pixel-tag">DEVREL</span>
-                        </div>
-                    </div>
-
-                    <div class="pixel-box">
-                        <div class="pixel-box-header">
-                            <div>
-                                <div class="pixel-box-role">KEY ACHIEVEMENTS</div>
-                                <h3 class="pixel-box-title">IMPACT & GROWTH</h3>
-                            </div>
-                        </div>
-                        <p class="pixel-box-text">
-                            Executed community campaigns, managed social channels, organized AMAs and educational workshops. Created content demystifying oracle technology for developers and users. Built sustainable programs driving ecosystem adoption and innovation.
-                        </p>
-                        <div class="pixel-tags">
-                            <span class="pixel-tag">EVENTS</span>
-                            <span class="pixel-tag">EDUCATION</span>
-                            <span class="pixel-tag">CONTENT</span>
-                            <span class="pixel-tag">GROWTH</span>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="portfolio">
-                    <div class="section-header">
-                        <h2 class="section-title">PORTFOLIO</h2>
-                        <p class="section-subtitle">
-                            VIBE-CODED APPLICATIONS AND EXPERIMENTAL WEB3 PROJECTS
-                        </p>
-                    </div>
-
-                    <div class="portfolio-grid">
-                        <a href="https://github.com/Chop-Kampfire/PythyBird" target="_blank" class="portfolio-item">
-                            <div class="portfolio-header">
-                                <div class="portfolio-number">01</div>
-                            </div>
-                            <div class="portfolio-content">
-                                <h3 class="portfolio-title">PYTHYBIRD</h3>
-                                <p class="portfolio-description">
-                                    A browser-based game that uses Pyth Price Feeds to generate random game terrains for players to navigate through.
-                                </p>
-                                <div class="pixel-tags">
-                                    <span class="pixel-tag">HTML</span>
-                                    <span class="pixel-tag">GAME</span>
-                                    <span class="pixel-tag">PYTH</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a href="https://github.com/Chop-Kampfire/PythPricesBot" target="_blank" class="portfolio-item">
-                            <div class="portfolio-header">
-                                <div class="portfolio-number">02</div>
-                            </div>
-                            <div class="portfolio-content">
-                                <h3 class="portfolio-title">PYTH PRICES BOT</h3>
-                                <p class="portfolio-description">
-                                    Sends live price updates to social channels including Telegram, Discord, Twitter, Reddit and more.
-                                </p>
-                                <div class="pixel-tags">
-                                    <span class="pixel-tag">PYTHON</span>
-                                    <span class="pixel-tag">BOT</span>
-                                    <span class="pixel-tag">PYTH</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a href="https://github.com/Chop-Kampfire/ContentDashboard" target="_blank" class="portfolio-item">
-                            <div class="portfolio-header">
-                                <div class="portfolio-number">03</div>
-                            </div>
-                            <div class="portfolio-content">
-                                <h3 class="portfolio-title">CONTENT DASHBOARD</h3>
-                                <p class="portfolio-description">
-                                    A dashboard to create and manage content across different social platforms and profiles.
-                                </p>
-                                <div class="pixel-tags">
-                                    <span class="pixel-tag">PYTHON</span>
-                                    <span class="pixel-tag">SOCIAL</span>
-                                    <span class="pixel-tag">DASHBOARD</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </section>
-
-                <section id="blog">
-                    <div class="section-header">
-                        <h2 class="section-title">WRITING</h2>
-                        <p class="section-subtitle">
-                            THOUGHTS ON COMMUNITY BUILDING, WEB3 CULTURE, AND DECENTRALIZED NETWORKS // BY CHOP
-                        </p>
-                    </div>
-
-                                        <div class="blog-posts">
-                        <article class="blog-post">
-                            <div class="blog-author">
-                                <img src="CHOP.jpg" alt="Chop" class="author-img">
-                                <span class="author-name">CHOP</span>
-                                <div class="blog-date-info">
-                                    <div class="month">DEC</div>
-                                    <div class="day">18</div>
-                                    <div class="year">2025</div>
-                                </div>
-                            </div>
-                            <div class="blog-content">
-                                <h3 class="blog-title">CRABS IN A BUCKET: A CRYPTO SEAFOOD BOIL</h3>
-                                <p class="blog-excerpt">
-                                    Building cultural immune systems, fighting energy vampires, and making flywheels spin faster. How to protect your community from extractors...
-                                </p>
-                                <a href="Blog/Crabs in a Bucket; a Crypto Seafood Boil/index.html" class="blog-link">READ MORE ►</a>
-                            </div>
-                        </article>
-
-                        <article class="blog-post">
-                            <div class="blog-author">
-                                <img src="CHOP.jpg" alt="Chop" class="author-img">
-                                <span class="author-name">CHOP</span>
-                                <div class="blog-date-info">
-                                    <div class="month">NOV</div>
-                                    <div class="day">01</div>
-                                    <div class="year">2024</div>
-                                </div>
-                            </div>
-                            <div class="blog-content">
-                                <h3 class="blog-title">WHY COMMUNITIES BEAT VCS AND HOW</h3>
-                                <p class="blog-excerpt">
-                                    Community; agency, tokens &amp; culture. Exploring the community flywheel, cultural capital, and why web3 communities represent a new paradigm...
-                                </p>
-                                <a href="Blog/why-communities-beat-vcs/index.html" class="blog-link">READ MORE ►</a>
-                            </div>
-                        </article>
-
-                        <article class="blog-post">
-                            <div class="blog-author">
-                                <img src="CHOP.jpg" alt="Chop" class="author-img">
-                                <span class="author-name">CHOP</span>
-                                <div class="blog-date-info">
-                                    <div class="month">MAR</div>
-                                    <div class="day">01</div>
-                                    <div class="year">2024</div>
-                                </div>
-                            </div>
-                            <div class="blog-content">
-                                <h3 class="blog-title">CREATING A COMMUNITY CULT(URE)</h3>
-                                <p class="blog-excerpt">
-                                    How to build, nurture and understand the creation of a community cult(ure) in web3. A framework for understanding memetic community cults...
-                                </p>
-                                <a href="Blog/creating a community cult(ure)/index.html" class="blog-link">READ MORE ►</a>
-                            </div>
-                        </article>
-
-                        <article class="blog-post">
-                            <div class="blog-author">
-                                <img src="CHOP.jpg" alt="Chop" class="author-img">
-                                <span class="author-name">CHOP</span>
-                                <div class="blog-date-info">
-                                    <div class="month">AUG</div>
-                                    <div class="day">17</div>
-                                    <div class="year">2023</div>
-                                </div>
-                            </div>
-                            <div class="blog-content">
-                                <h3 class="blog-title">FOUNDATIONAL COMMUNITY</h3>
-                                <p class="blog-excerpt">
-                                    What role do Blockchain Foundations play in forming community? Exploring GM culture, family vs community, and building strong foundations...
-                                </p>
-                                <a href="Blog/foundational community/index.html" class="blog-link">READ MORE ►</a>
-                            </div>
-                        </article>
-
-                        <article class="blog-post">
-                            <div class="blog-author">
-                                <img src="CHOP.jpg" alt="Chop" class="author-img">
-                                <span class="author-name">CHOP</span>
-                                <div class="blog-date-info">
-                                    <div class="month">FEB</div>
-                                    <div class="day">24</div>
-                                    <div class="year">2023</div>
-                                </div>
-                            </div>
-                            <div class="blog-content">
-                                <h3 class="blog-title">PSEUDONYMITY, DIGITAL IDENTITY &amp; CRYPTO</h3>
-                                <p class="blog-excerpt">
-                                    Fractured digital identities, social conditioning and income from reputation. How you became pseudonymous without even knowing it...
-                                </p>
-                                <a href="Blog/Pseudonymity, Digital Identity &amp; Crypto/index.html" class="blog-link">READ MORE ►</a>
-                            </div>
-                        </article>
-
-                        <article class="blog-post">
-                            <div class="blog-author">
-                                <img src="CHOP.jpg" alt="Chop" class="author-img">
-                                <span class="author-name">CHOP</span>
-                                <div class="blog-date-info">
-                                    <div class="month">FEB</div>
-                                    <div class="day">03</div>
-                                    <div class="year">2023</div>
-                                </div>
-                            </div>
-                            <div class="blog-content">
-                                <h3 class="blog-title">WEB3 AND RUNESCAPE: THE CONNECTION</h3>
-                                <p class="blog-excerpt">
-                                    How playing Runescape in the 2000s prepared a generation for crypto. The skills, mindsets, and experiences that translate directly to Web3...
-                                </p>
-                                <a href="Blog/Exploring my fascination with Web3 and Runescape/index.html" class="blog-link">READ MORE ►</a>
-                            </div>
-                        </article>
-                    </div>
-                </section>
-
-                <section id="contact">
-                    <div class="section-header">
-                        <h2 class="section-title">CONNECT</h2>
-                        <p class="section-subtitle">
-                            LET'S TALK WEB3, COMMUNITY BUILDING, OR COLLABORATE ON SOMETHING COOL
-                        </p>
-                    </div>
-
-                    <div class="social-grid">
-                        <a href="https://x.com/CHOPPAtheSHARK" target="_blank" class="social-box">
-                            <div class="social-icon">🐦</div>
-                            <div class="social-name">TWITTER</div>
-                        </a>
-                        <a href="https://github.com/Chop-Kampfire" target="_blank" class="social-box">
-                            <div class="social-icon">💻</div>
-                            <div class="social-name">GITHUB</div>
-                        </a>
-                        <a href="https://t.me/ChoppaTheShark" target="_blank" class="social-box">
-                            <div class="social-icon">✈️</div>
-                            <div class="social-name">TELEGRAM</div>
-                        </a>
-                        <a href="mailto:hello@kampfire.digital" class="social-box">
-                            <div class="social-icon">📧</div>
-                            <div class="social-name">EMAIL</div>
-                        </a>
-                    </div>
-                </section>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">We Listen</h3>
+                    <p class="step-desc">Book a free 30-minute call. Tell us what's eating your time. We'll tell you honestly if we can help.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">We Build</h3>
+                    <p class="step-desc">We design and implement automations using tools like Make.com, Zapier, and AI. You approve everything before it goes live.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">You Save</h3>
+                    <p class="step-desc">Your team gets hours back every week. We document everything so you're never dependent on us.</p>
+                </div>
             </div>
-        </main>
+        </div>
+    </section>
 
-        <footer>
-            <div class="container">
-                <p>© 2026 <span class="footer-pixel">KAMPFIRE.DIGITAL</span> // BUILT WITH HELP FROM MY FRENCH BUTLER STEVE.</p>
+    <!-- ===== ABOUT ===== -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">About</p>
+                <h2 class="section-title">Built by operators, not just consultants</h2>
             </div>
-        </footer>
-    </div>
 
+            <div class="about-content">
+                <p class="about-text">We've managed 500,000+ person communities, built AI tools used by real teams, and automated our own workflows before automating yours.</p>
+                <p class="about-text">We use these tools every day. When we recommend something, it's because we've already tested it.</p>
+                <div class="trust-tags">
+                    <span class="trust-tag">Make.com</span>
+                    <span class="trust-tag">Claude AI</span>
+                    <span class="trust-tag">Zapier</span>
+                    <span class="trust-tag">Google Workspace</span>
+                    <span class="trust-tag">n8n</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BLOG ===== -->
+    <section id="blog">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">Blog</p>
+                <h2 class="section-title">Thinking Out Loud</h2>
+                <p class="section-subtitle">Ideas on community, technology, and building things that last.</p>
+            </div>
+
+            <div class="blog-grid">
+                <a href="Blog/Crabs in a Bucket; a Crypto Seafood Boil/index.html" class="blog-card">
+                    <span class="blog-card-date">December 18, 2025</span>
+                    <h3 class="blog-card-title">Crabs in a Bucket: A Crypto Seafood Boil</h3>
+                    <p class="blog-card-excerpt">Building cultural immune systems, fighting energy vampires, and making flywheels spin faster. How to protect your community from extractors.</p>
+                    <span class="blog-card-link">Read</span>
+                </a>
+
+                <a href="Blog/why-communities-beat-vcs/index.html" class="blog-card">
+                    <span class="blog-card-date">November 1, 2024</span>
+                    <h3 class="blog-card-title">Why Communities Beat VCs</h3>
+                    <p class="blog-card-excerpt">Agency, tokens, and culture. Exploring the community flywheel, cultural capital, and why communities represent a new paradigm for growth.</p>
+                    <span class="blog-card-link">Read</span>
+                </a>
+
+                <a href="Blog/creating a community cult(ure)/index.html" class="blog-card">
+                    <span class="blog-card-date">March 1, 2024</span>
+                    <h3 class="blog-card-title">Creating a Community Cult(ure)</h3>
+                    <p class="blog-card-excerpt">How to build, nurture and understand the creation of a community culture. A framework for understanding memetic community dynamics.</p>
+                    <span class="blog-card-link">Read</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">Contact</p>
+                <h2 class="section-title">Let's See If We're a Good Fit</h2>
+                <p class="section-subtitle">Book a free 30-minute discovery call. No pitch, no pressure &mdash; just an honest conversation about whether AI automation makes sense for your business.</p>
+            </div>
+
+            <div class="contact-layout">
+                <div class="contact-info">
+                    <p class="contact-info-text">We work best with small businesses, accountants, and professional services firms who know their time is worth more than the repetitive tasks eating it. If that sounds like you, reach out.</p>
+
+                    <div class="contact-detail">
+                        <span class="contact-detail-label">Email</span>
+                        <a href="mailto:hello@kampfire.digital">hello@kampfire.digital</a>
+                    </div>
+
+                    <div class="contact-socials">
+                        <!-- Twitter/X -->
+                        <a href="https://x.com/CHOPPAtheSHARK" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <!-- GitHub -->
+                        <a href="https://github.com/ChoppaTheMegalodon" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                        </a>
+                        <!-- Telegram -->
+                        <a href="https://t.me/ChoppaTheShark" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Telegram">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <form action="https://formspree.io/f/placeholder" method="POST" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="you@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="business">Business Type</label>
+                        <select id="business" name="business" required>
+                            <option value="" disabled selected>Select your industry</option>
+                            <option value="Accounting/Finance">Accounting / Finance</option>
+                            <option value="Real Estate">Real Estate</option>
+                            <option value="Professional Services">Professional Services</option>
+                            <option value="E-commerce">E-commerce</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Tell us about the tasks eating your time..." required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <span class="footer-copy">&copy; 2026 Kampfire Digital</span>
+                <a href="#" class="footer-top">Back to top</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JS ===== -->
     <script>
-        // Campfire click functionality
-        const campfireBtn = document.getElementById('campfire-btn');
-        const splashScreen = document.getElementById('splash-screen');
-        const mainSite = document.getElementById('main-site');
+        // Mobile nav toggle
+        (function() {
+            var toggle = document.getElementById('navToggle');
+            var overlay = document.getElementById('navOverlay');
+            var overlayLinks = overlay.querySelectorAll('a');
 
-        campfireBtn.addEventListener('click', () => {
-            splashScreen.classList.add('hidden');
-            setTimeout(() => {
-                splashScreen.style.display = 'none';
-                mainSite.classList.add('active');
-            }, 500);
-        });
-
-        // Generate stars
-        const starsContainer = document.getElementById('stars');
-        for (let i = 0; i < 50; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.animationDelay = Math.random() * 3 + 's';
-            starsContainer.appendChild(star);
-        }
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+            toggle.addEventListener('click', function() {
+                toggle.classList.toggle('active');
+                overlay.classList.toggle('active');
+                document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
             });
-        });
 
-        // Keyboard controls (optional arcade-style easter egg)
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && splashScreen.style.display !== 'none') {
-                campfireBtn.click();
+            for (var i = 0; i < overlayLinks.length; i++) {
+                overlayLinks[i].addEventListener('click', function() {
+                    toggle.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
             }
-        });
+        })();
+
+        // Header scroll shadow
+        (function() {
+            var header = document.getElementById('site-header');
+            var last = 0;
+            window.addEventListener('scroll', function() {
+                var y = window.scrollY;
+                if (y > 20) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                last = y;
+            }, { passive: true });
+        })();
     </script>
 </body>
 </html>
