@@ -21,3 +21,17 @@ node_modules/
 # Build files (if you add build process later)
 dist/
 build/
+
+# Business-sensitive files (local only, not for public repo)
+clients/
+FINANCIAL_TRACKER.md
+BUSINESS_PLAN.md
+BRAND_SEPARATION.md
+WEEK_1_EXECUTABLES.md
+CLAUDE.md
+templates/
+marketing/
+demos/
+
+# Client knowledge bases — never publish
+NRG Knowledge Base/

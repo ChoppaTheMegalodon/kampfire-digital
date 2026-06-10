@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to your NRG Knowledge Base — Kampfire Digital</title>
+    <meta name="description" content="Setup instructions for the NRG team — join the Discord workspace and start using your knowledge base.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#E97451">
+    <link rel="icon" type="image/png" href="/Kampfire.png">
+    <link rel="apple-touch-icon" href="/Kampfire.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #E97451;
+            --orange-dark: #C75B3A;
+            --ink: #1a1a1a;
+            --muted: #555;
+            --paper: #fefdf9;
+            --paper-warm: #f4f0e6;
+            --border: #e8e2d3;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--ink);
+            background: var(--paper);
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap { max-width: 720px; margin: 0 auto; padding: 48px 24px 96px; }
+        header { display: flex; align-items: center; gap: 12px; margin-bottom: 48px; }
+        header img { width: 40px; height: 40px; }
+        header .name { font-weight: 700; letter-spacing: 0.5px; font-size: 18px; }
+        h1 {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+        .lede {
+            font-size: 18px;
+            color: var(--muted);
+            margin-bottom: 40px;
+            max-width: 60ch;
+        }
+        h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 56px;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+            letter-spacing: -0.01em;
+        }
+        h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 32px;
+            margin-bottom: 8px;
+        }
+        p { margin-bottom: 16px; max-width: 60ch; }
+        ol, ul { margin: 16px 0 24px 20px; }
+        li { margin-bottom: 10px; max-width: 60ch; }
+        code {
+            font-family: 'JetBrains Mono', 'Consolas', monospace;
+            font-size: 14px;
+            background: var(--paper-warm);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--orange-dark);
+        }
+        a { color: var(--orange-dark); text-decoration: underline; text-underline-offset: 3px; }
+        a:hover { color: var(--orange); }
+        .cta {
+            display: inline-block;
+            background: var(--orange);
+            color: white !important;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            margin: 12px 0 8px;
+            box-shadow: 0 2px 8px rgba(233, 116, 81, 0.25);
+            transition: transform 0.1s, box-shadow 0.2s;
+        }
+        .cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(233, 116, 81, 0.35);
+            color: white !important;
+        }
+        .callout {
+            background: var(--paper-warm);
+            border-left: 4px solid var(--orange);
+            padding: 16px 20px;
+            border-radius: 0 6px 6px 0;
+            margin: 24px 0;
+            font-size: 15px;
+        }
+        .callout strong { color: var(--orange-dark); }
+        .step {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+        }
+        .step-num {
+            display: inline-block;
+            background: var(--orange);
+            color: white;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            text-align: center;
+            font-weight: 700;
+            line-height: 26px;
+            font-size: 14px;
+            margin-right: 10px;
+            vertical-align: 2px;
+        }
+        .step h3 { margin-top: 0; display: inline; }
+        footer {
+            margin-top: 80px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 14px;
+        }
+        .channel {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--paper-warm);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: var(--orange-dark);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+
+    <header>
+        <img src="/Kampfire.png" alt="Kampfire Digital">
+        <span class="name">KAMPFIRE</span>
+    </header>
+
+    <h1>Welcome to your NRG Knowledge Base.</h1>
+    <p class="lede">
+        Five minutes to get set up. After that, every NCC clause, R-value, BASIX rule, and product spec you've ever paid for sits one question away — in Discord, on your phone or laptop, available to the whole team.
+    </p>
+
+    <h2>What this is</h2>
+    <p>
+        We've built NRG a private knowledge base that the whole team can query in plain English. It runs inside a Discord workspace — like Slack or WhatsApp, but free and built for teams. You ask a question in <span class="channel">#wiki-bot</span>, the bot answers from your own documents. You drop a new PDF in <span class="channel">#ingest</span>, the bot reads it and offers to add it to the knowledge base.
+    </p>
+    <p>
+        The wiki is yours, on your OneDrive, fully portable. The bot is the interface that makes it instantly searchable.
+    </p>
+
+    <h2>Setup — 5 minutes</h2>
+
+    <div class="step">
+        <span class="step-num">1</span><h3>Install Discord</h3>
+        <p>
+            On your phone: download from the App Store or Play Store. On your computer: download from
+            <a href="https://discord.com/download" target="_blank" rel="noopener">discord.com/download</a>
+            and install. Free account, signup takes 60 seconds. Use your real name — your NRG colleagues will see it.
+        </p>
+    </div>
+
+    <div class="step">
+        <span class="step-num">2</span><h3>Join the NRG workspace</h3>
+        <p>Click the button below. It opens Discord and adds you to the NRG Knowledge Base workspace.</p>
+        <a href="https://discord.gg/jUFydS8Erj" class="cta" target="_blank" rel="noopener">Join the NRG Discord →</a>
+        <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">
+            If the button doesn't work, copy this link: <code>https://discord.gg/jUFydS8Erj</code>
+        </p>
+    </div>
+
+    <div class="step">
+        <span class="step-num">3</span><h3>Say hi in <span class="channel">#general</span></h3>
+        <p>
+            Once you're in, you'll see a few channels on the left. Drop a quick "hello" in <span class="channel">#general</span> so we know you're set up. Tyrone will assign you the NRG Team role — that's what unlocks the bot.
+        </p>
+    </div>
+
+    <div class="step">
+        <span class="step-num">4</span><h3>Ask your first question in <span class="channel">#wiki-bot</span></h3>
+        <p>
+            Try something you'd normally Google. For example:
+        </p>
+        <ul>
+            <li><em>"What's the solar absorptance for Monument?"</em></li>
+            <li><em>"R-value of an R1 XPS board?"</em></li>
+            <li><em>"What's the WoH heating load cap for climate zone 5?"</em></li>
+            <li><em>"NCC 2022 — when does Spec 44 apply?"</em></li>
+        </ul>
+        <p>
+            The bot reads from NRG's own documents. It cites the source. If it doesn't know, it'll tell you — never guess. (That's a hard rule. Confidence in wrong numbers destroys trust.)
+        </p>
+        <p>
+            <strong>Read the colour, not just the words.</strong> Every answer comes back colour-coded:
+        </p>
+        <ul>
+            <li>🟢 <strong>Green</strong> — answered straight from NRG's documents, sources cited in the 📎 footer. Safe to use.</li>
+            <li>🟠 <strong>Amber</strong> — the wiki doesn't have that specific figure. The bot says so and points to the document to check. Verify before quoting to a client or certifier.</li>
+        </ul>
+        <p>
+            Three slash commands worth knowing: <span class="channel">/help</span> (quick guide), <span class="channel">/reset</span> (clear your chat history with the bot), <span class="channel">/status</span> (is it alive, how big is the wiki).
+        </p>
+    </div>
+
+    <div class="step">
+        <span class="step-num">5</span><h3>Drop a PDF in <span class="channel">#ingest</span> when you've got new info</h3>
+        <p>
+            Got a new regulation update, product datasheet, or internal SOP you want the wiki to know about? Drop the file (PDF, Word doc, or text file) into the <span class="channel">#ingest</span> channel. The bot reads it, drafts a summary, and shows it for review. Tyrone confirms with ✅ — and the wiki grows. Usually takes about 30 seconds end to end.
+        </p>
+    </div>
+
+    <h2>What it already knows</h2>
+
+    <div class="callout">
+        <p style="margin: 0;">
+            The wiki is fully loaded — <strong>176 pages covering 95%+ of NRG's reference library</strong>. The NatHERS Assessor Handbook 2024, NCC 2022 (Volume One, Volume Two, Housing Provisions, Amendment 1), the NCC 2025 Public Comment Drafts, BASIX Thermal Performance Protocol, state Building Acts (QLD s61/s81 in full), Spec 44, Whole-of-Home, climate zones, and every product datasheet on file — Hebel to COLORBOND to Kingspan.
+        </p>
+    </div>
+
+    <ul>
+        <li><strong>Day 1 (today):</strong> get into Discord, ask a few questions you already know the answers to — see how it cites.</li>
+        <li><strong>This week:</strong> bring it the questions that normally mean digging through PDFs. Time how long it takes. That's the point.</li>
+        <li><strong>Ongoing:</strong> any new document you drop in <span class="channel">#ingest</span> becomes part of the wiki within minutes. The longer the team uses it, the smarter it gets.</li>
+    </ul>
+
+    <h2>If you get stuck</h2>
+    <p>
+        Text or email Tyrone (Choppa) at any point — there's no such thing as a silly question in setup week. The whole point is for this to feel obvious, not clever.
+    </p>
+    <ul>
+        <li><strong>Email:</strong> <a href="mailto:tyrone.a.vanderley@gmail.com">tyrone.a.vanderley@gmail.com</a></li>
+        <li><strong>Phone/text:</strong> as previously shared</li>
+        <li><strong>Inside Discord:</strong> tag <code>@Choppa</code> in any channel</li>
+    </ul>
+
+    <h2>The bot's promise</h2>
+    <div class="callout">
+        <p><strong>It will not invent numbers.</strong> If the answer isn't in the wiki, it says so and points you to the right source document. "I don't have that — check <code>sources/src-X.md</code>" is always the right answer when the wiki is silent.</p>
+        <p style="margin-bottom: 0;"><strong>You still own the wiki.</strong> The whole thing is plain markdown files in NRG's OneDrive. Fully portable. Bot is the interface; wiki is yours.</p>
+    </div>
+
+    <footer>
+        <p>
+            Built by <a href="https://kampfire.digital/" target="_blank" rel="noopener">Kampfire Digital</a> · Production v3, June 2026 · Tyrone "Choppa" van der Ley
+        </p>
+        <p style="margin-top: 12px; font-size: 13px;">
+            This page is unlisted — it's just for you and the NRG team. Share the URL freely with anyone joining the workspace.
+        </p>
+    </footer>
+
+</div>
+</body>
+</html>
