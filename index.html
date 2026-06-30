@@ -118,8 +118,8 @@
         <div class="container">
             <div class="hero-grid">
                 <div>
-                    <h1>Your Business.<br><span>Minus the Busywork.</span></h1>
-                    <p class="hero-sub">We build AI automations that handle the repetitive stuff &mdash; invoicing, scheduling, data entry &mdash; so you can focus on actual work.</p>
+                    <h1>You didn't get into the trade<br><span>to drown in admin.</span></h1>
+                    <p class="hero-sub">Custom AI workflows for Australian energy assessors, builders and the trades around them &mdash; built by an operator who's spent time on the tools, not another app to learn.</p>
                     <div class="hero-ctas">
                         <a href="#contact" class="btn btn-primary">Book a Free Call</a>
                         <a href="#results" class="btn btn-outline">See What We've Done</a>
@@ -273,14 +273,13 @@
             <p class="section-label reveal">About</p>
             <h2 class="section-title reveal">Built by operators, not consultants.</h2>
             <div class="about-content reveal">
-                <p>We've managed 500,000+ person communities, built AI tools used by real teams, and automated our own workflows before touching yours. We're based on the Sunshine Coast, and we speak plain English &mdash; not Silicon Valley.</p>
+                <p>I'm Tyrone. I've spent time on the tools and years building the systems that run real businesses &mdash; so I sit at the table in your language, not Silicon Valley's. Kampfire builds AI workflows for Australian trades and construction, here on the Sunshine Coast. We don't sell you another app to learn. We build the workflows that make the tools you already pay for go quiet.</p>
                 <div class="trust-tags">
-                    <span class="trust-tag">Make.com</span>
-                    <span class="trust-tag">Claude AI</span>
-                    <span class="trust-tag">Zapier</span>
-                    <span class="trust-tag">Google Workspace</span>
-                    <span class="trust-tag">n8n</span>
-                    <span class="trust-tag">Airtable</span>
+                    <span class="trust-tag">Sunshine Coast</span>
+                    <span class="trust-tag">Construction niche</span>
+                    <span class="trust-tag">Operator-built</span>
+                    <span class="trust-tag">No lock-in</span>
+                    <span class="trust-tag">Plain English</span>
                 </div>
                 <div class="about-terminal">
                     <span class="prompt-char">&gt; </span>currently: building automations for sunshine coast businesses<span class="terminal-cursor"></span>
@@ -312,15 +311,14 @@
                     <div class="form-group">
                         <label for="business">Business Type</label>
                         <select id="business" name="business_type" required>
-                            <option value="" disabled selected>Select your industry</option>
-                            <option value="accounting">Accounting / Finance</option>
-                            <option value="legal">Legal</option>
-                            <option value="realestate">Real Estate</option>
-                            <option value="trades">Trades / Construction</option>
-                            <option value="healthcare">Healthcare</option>
-                            <option value="retail">Retail / E-commerce</option>
-                            <option value="professional">Professional Services</option>
-                            <option value="other">Other</option>
+                            <option value="" disabled selected>What's your trade?</option>
+                            <option value="energy-assessor">Energy assessor (NatHERS / BASIX)</option>
+                            <option value="builder">Builder / building company</option>
+                            <option value="building-designer">Building designer / drafter</option>
+                            <option value="surveyor">Building surveyor / certifier</option>
+                            <option value="town-planner">Town planner</option>
+                            <option value="quantity-surveyor">Quantity surveyor / estimator</option>
+                            <option value="other">Another trade</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -358,22 +356,22 @@
         // ===== TERMINAL TYPING =====
         var terminalSequences = [
             [
-                { prompt: '> ', cmd: 'analyzing invoices...' },
-                { prompt: '> ', cmd: 'matching to xero accounts...' },
-                { prompt: '> ', result: '47 invoices processed ', success: '\u2713' },
-                { prompt: '> ', result: '12.5 hours saved this week' }
+                { prompt: '> ', cmd: 'solar absorptance for Monument?' },
+                { prompt: '> ', cmd: 'searching knowledge base...' },
+                { prompt: '> ', result: '0.73, Dark D ', success: '\u2713' },
+                { prompt: '> ', result: 'answered in 4 seconds, not 4 messages' }
             ],
             [
-                { prompt: '> ', cmd: 'scanning appointment requests...' },
-                { prompt: '> ', cmd: 'checking calendar availability...' },
-                { prompt: '> ', result: '23 appointments booked ', success: '\u2713' },
-                { prompt: '> ', result: '6 hours of phone tag eliminated' }
+                { prompt: '> ', cmd: 'client accepted quote #1042' },
+                { prompt: '> ', cmd: 'routing brief + booking + folder...' },
+                { prompt: '> ', result: 'assessor briefed ', success: '\u2713' },
+                { prompt: '> ', result: '3-day lag, gone' }
             ],
             [
-                { prompt: '> ', cmd: 'importing receipts from email...' },
-                { prompt: '> ', cmd: 'categorizing expenses...' },
-                { prompt: '> ', result: '89 receipts processed ', success: '\u2713' },
-                { prompt: '> ', result: '8 hours of data entry saved' }
+                { prompt: '> ', cmd: 'scanning plans for assessment gaps...' },
+                { prompt: '> ', cmd: 'checking window schedule + R-values...' },
+                { prompt: '> ', result: 'missing detail flagged ', success: '\u2713' },
+                { prompt: '> ', result: 'caught now, not a month from now' }
             ]
         ];
 
