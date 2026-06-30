@@ -1,2 +1,13 @@
 User-agent: *
+Allow: /
 Disallow: /proposals/
+Disallow: /clients/
+Disallow: /raw/
+Disallow: /wiki/
+Disallow: /history/
+Disallow: /drafts/
+Disallow: /NRG%20Knowledge%20Base/
+Disallow: /templates/
+Disallow: /marketing/
+
+Sitemap: https://kampfire.digital/sitemap.xml

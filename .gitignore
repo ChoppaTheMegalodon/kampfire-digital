@@ -35,3 +35,12 @@ demos/
 
 # Client knowledge bases — never publish
 NRG Knowledge Base/
+
+# Internal strategy & commercial docs — local only, NEVER publish to the public repo
+history/
+wiki/
+raw/
+SEO_AUDIT.md
+SEO_STRATEGY.md
+LEAD_CAPTURE.md
+PRODUCT_CASE_ASSESSOR_KB.md

@@ -1,10 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-AU">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kampfire Digital — AI Workflow Automation for Business</title>
+    <title>Kampfire Digital — AI Workflow Automation for Australian Business</title>
     <meta name="description" content="We build AI automations that handle the repetitive stuff — invoicing, scheduling, data entry — so Sunshine Coast businesses can focus on actual work.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta name="theme-color" content="#E97451">
+    <link rel="canonical" href="https://kampfire.digital/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Kampfire Digital">
+    <meta property="og:title" content="Kampfire Digital — AI Workflow Automation for Australian Business">
+    <meta property="og:description" content="AI workflows that earn their keep. Built for Australian construction-adjacent businesses by an operator who knows your trade.">
+    <meta property="og:url" content="https://kampfire.digital/">
+    <meta property="og:image" content="https://kampfire.digital/Kampfire.png">
+    <meta property="og:locale" content="en_AU">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kampfire Digital — AI Workflow Automation for Australian Business">
+    <meta name="twitter:description" content="AI workflows that earn their keep. Built for Australian construction-adjacent businesses by an operator who knows your trade.">
+    <meta name="twitter:image" content="https://kampfire.digital/Kampfire.png">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/Kampfire.png">
+    <link rel="apple-touch-icon" href="/Kampfire.png">
+
+    <!-- Google Search Console — replace REPLACE_ME with verification code from search.google.com/search-console -->
+    <meta name="google-site-verification" content="REPLACE_ME">
+
+    <!-- JSON-LD: Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Kampfire Digital",
+      "url": "https://kampfire.digital/",
+      "logo": "https://kampfire.digital/Kampfire.png",
+      "description": "AI workflow automation consultancy for Australian construction-adjacent SMBs — energy assessors, building designers, surveyors, town planners, and small builders.",
+      "founder": {
+        "@type": "Person",
+        "name": "Tyrone van der Ley"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "QLD",
+        "addressCountry": "AU",
+        "addressLocality": "Sunshine Coast"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Australia"
+      }
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -683,19 +734,38 @@
         }
         .footer-inner {
             display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        .footer-links a {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .footer-links a:hover { color: var(--primary-light); }
+        .footer-meta {
+            display: flex;
             justify-content: space-between;
             align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-card);
         }
-        .footer-inner span {
+        .footer-meta span {
             font-size: 0.85rem;
             color: var(--text-muted);
         }
-        .footer-inner a {
+        .footer-meta a {
             font-size: 0.85rem;
             color: var(--text-muted);
             text-decoration: none;
         }
-        .footer-inner a:hover { color: var(--white); }
+        .footer-meta a:hover { color: var(--white); }
 
         /* ===== SCROLL REVEAL ===== */
         .reveal {
@@ -761,10 +831,13 @@
                 gap: 2.5rem;
             }
 
-            .footer-inner {
+            .footer-meta {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 0.75rem;
                 text-align: center;
+            }
+            .footer-links {
+                justify-content: center;
             }
         }
 
@@ -786,11 +859,11 @@
             </a>
             <nav>
                 <ul>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#results">Results</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#blog">Blog</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="/services/ai-for-energy-assessors/">Energy Assessors</a></li>
+                    <li><a href="/services/admin-automation-for-builders/">Builders</a></li>
+                    <li><a href="/case-studies/nrg/">Case Studies</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
                 </ul>
             </nav>
             <button class="hamburger" aria-label="Toggle navigation">
@@ -803,11 +876,11 @@
 
     <!-- MOBILE NAV -->
     <div class="mobile-nav" id="mobileNav">
-        <a href="#services">Services</a>
-        <a href="#results">Results</a>
-        <a href="#about">About</a>
-        <a href="#blog">Blog</a>
-        <a href="#contact">Contact</a>
+        <a href="/services/ai-for-energy-assessors/">Energy Assessors</a>
+        <a href="/services/admin-automation-for-builders/">Builders</a>
+        <a href="/case-studies/nrg/">Case Studies</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
     </div>
 
     <!-- HERO -->
@@ -821,6 +894,11 @@
                         <a href="#contact" class="btn btn-primary">Book a Free Call</a>
                         <a href="#results" class="btn btn-outline">See What We've Done</a>
                     </div>
+                    <p style="display: inline-flex; align-items: center; gap: 0.55rem; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                        <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 4px rgba(233,116,81,0.18); display: inline-block;"></span>
+                        Now running live automation for an Australian energy-efficiency consultancy &mdash;
+                        <a href="/case-studies/nrg/" style="color: var(--primary); font-weight: 600;">see the build &rsaquo;</a>
+                    </p>
                 </div>
                 <div class="terminal" aria-hidden="true">
                     <div class="terminal-header">
@@ -1025,17 +1103,7 @@
                     <h2>Let's see if we're a good fit.</h2>
                     <p>30-minute call. No pitch deck. We'll ask what's eating your time and tell you honestly whether automation makes sense for your business.</p>
                     <a href="mailto:tyrone.a.vanderley@gmail.com" class="email-link">tyrone.a.vanderley@gmail.com</a>
-                    <div class="socials">
-                        <a href="https://x.com/CHOPPAtheSHARK" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X / Twitter">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                        </a>
-                        <a href="https://github.com/ChoppaTheMegalodon" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-                        </a>
-                        <a href="https://t.me/ChoppaTheShark" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Telegram">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                        </a>
-                    </div>
+                    <a href="tel:+61412593732" class="email-link">0412 593 732</a>
                 </div>
                 <form action="https://formspree.io/f/xaqdwkqa" method="POST" class="contact-form reveal">
                     <div class="form-group">
@@ -1073,8 +1141,17 @@
     <!-- FOOTER -->
     <footer>
         <div class="container footer-inner">
-            <span>&copy; 2026 Kampfire Digital</span>
-            <a href="#">Back to top &uarr;</a>
+            <div class="footer-links">
+                <a href="/services/ai-for-energy-assessors/">For Energy Assessors</a>
+                <a href="/services/admin-automation-for-builders/">For Builders</a>
+                <a href="/case-studies/nrg/">Case Studies</a>
+                <a href="/about/">About</a>
+                <a href="/contact/">Contact</a>
+            </div>
+            <div class="footer-meta">
+                <span>&copy; 2026 Kampfire Digital · Sunshine Coast, QLD</span>
+                <a href="#">Back to top &uarr;</a>
+            </div>
         </div>
     </footer>
 
