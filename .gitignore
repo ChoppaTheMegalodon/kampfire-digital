@@ -22,35 +22,31 @@ node_modules/
 dist/
 build/
 
-# Business-sensitive files (local only, not for public repo)
-clients/
-FINANCIAL_TRACKER.md
-BUSINESS_PLAN.md
-BRAND_SEPARATION.md
-WEEK_1_EXECUTABLES.md
+# ── EVERYTHING BELOW IS LOCAL-ONLY. This is a PUBLIC repo (the website). ──
+
+# Business docs, strategy, commercial IP
+business/
+OPERATING_SYSTEM.md
 CLAUDE.md
+
+# Client files & knowledge bases — never publish
+clients/
+
+# Outreach engine — prospect intel & strategy
+outreach/
+.claude/
+
+# Delivery IP
+kits/
 templates/
 marketing/
 demos/
 
-# Client knowledge bases — never publish
-NRG Knowledge Base/
-
-# Internal strategy & commercial docs — local only, NEVER publish to the public repo
-history/
+# Wiki / knowledge base + activity logs
 wiki/
 raw/
-SEO_AUDIT.md
-SEO_STRATEGY.md
-LEAD_CAPTURE.md
-PRODUCT_CASE_ASSESSOR_KB.md
-build-og-image.py
-.shots/
+history/
 
-# Outreach engine — prospect intel & strategy, NEVER publish
-outreach/
-.claude/
-
-# Delivery IP + business operating system — NEVER publish
-kits/
-OPERATING_SYSTEM.md
+# Archived material (incl. superseded NRG Knowledge Base copy)
+_archive/
+_ARCHIVED*/
